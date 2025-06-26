@@ -4,6 +4,23 @@ const path = require('path');
 
 const port = process.env.PORT || 3000;
 
+function getBotReply(message) {
+  const text = message.toLowerCase();
+  if (text.includes('time')) {
+    return `Current server time is ${new Date().toLocaleTimeString()}.`;
+  }
+  if (text.includes('date')) {
+    return `Today's date is ${new Date().toLocaleDateString()}.`;
+  }
+  if (text.includes('hello')) {
+    return 'Hello! How can I assist you?';
+  }
+  if (text.includes('help')) {
+    return 'You can ask me about the time or date.';
+  }
+  return `You said: ${message}`;
+}
+
 const server = http.createServer((req, res) => {
   if (req.method === 'GET' && (req.url === '/' || req.url === '/index.html')) {
     // Serve index.html
@@ -24,7 +41,7 @@ const server = http.createServer((req, res) => {
     req.on('end', () => {
       try {
         const { message } = JSON.parse(body);
-        const reply = `You said: ${message}`;
+        const reply = getBotReply(message);
         const json = JSON.stringify({ reply });
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.end(json);
