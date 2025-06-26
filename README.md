@@ -1,6 +1,7 @@
 # Chatbot Web App
 
 This project contains a simple web application for a chatbot built with Node.js.
+The browser interface now features a modern design with message bubbles and a gradient background.
 
 ## Requirements
 - Node.js 18 or later (uses built-in `http` module, no external dependencies)

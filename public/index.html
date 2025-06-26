@@ -5,22 +5,108 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chatbot</title>
     <style>
-        body { font-family: Arial, sans-serif; margin: 20px; }
-        #chat { border: 1px solid #ccc; padding: 10px; height: 300px; overflow-y: scroll; }
-        #inputArea { margin-top: 10px; }
-        .message { margin: 5px 0; }
-        .user { color: blue; }
-        .bot { color: green; }
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+        }
+
+        #container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 600px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        #chat {
+            border: 1px solid rgba(255,255,255,0.3);
+            padding: 10px;
+            height: 300px;
+            overflow-y: auto;
+            border-radius: 4px;
+            background-color: rgba(0,0,0,0.3);
+        }
+
+        #inputArea {
+            margin-top: 10px;
+            display: flex;
+        }
+
+        #message {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 4px 0 0 4px;
+            outline: none;
+        }
+
+        #sendButton {
+            padding: 10px 20px;
+            border: none;
+            background: #00b4db;
+            color: #fff;
+            cursor: pointer;
+            border-radius: 0 4px 4px 0;
+            transition: background 0.3s ease;
+        }
+        #sendButton:hover {
+            background: #0083b0;
+        }
+
+        .message {
+            margin: 5px 0;
+            padding: 8px 12px;
+            border-radius: 12px;
+            max-width: 80%;
+            word-wrap: break-word;
+        }
+
+        .user {
+            align-self: flex-end;
+            background: #00b4db;
+            color: #000;
+            border-bottom-right-radius: 0;
+        }
+
+        .bot {
+            align-self: flex-start;
+            background: #eee;
+            color: #000;
+            border-bottom-left-radius: 0;
+        }
+
+        #chatContainer {
+            display: flex;
+            flex-direction: column;
+        }
     </style>
 </head>
 <body>
-    <h1>Simple Chatbot</h1>
-    <div id="chat"></div>
-    <div id="inputArea">
-        <input type="text" id="message" placeholder="Type your message" style="width:80%;" />
-        <button onclick="sendMessage()">Send</button>
+    <div id="container">
+        <h1>Next‑Gen Chatbot</h1>
+        <div id="chatContainer">
+            <div id="chat"></div>
+        </div>
+        <div id="inputArea">
+            <input type="text" id="message" placeholder="Type your message" />
+            <button id="sendButton" onclick="sendMessage()">Send</button>
+        </div>
     </div>
     <script>
+        document.getElementById('message').addEventListener('keydown', e => {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
         async function sendMessage() {
             const input = document.getElementById('message');
             const text = input.value.trim();
